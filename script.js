@@ -204,6 +204,13 @@ class Game {
         this.addBlock();
         this.tick();
         this.updateState(this.STATES.READY);
+
+        this.gameOverPopup = document.getElementById('game-over-popup');
+        this.closePopupButton = document.getElementById('close-popup-button');
+
+        // Add event listener to close button
+        this.closePopupButton.addEventListener('click', () => this.hideGameOverPopup());
+
         document.addEventListener('keydown', e => {
             if (e.keyCode == 32)
                 this.onAction();
@@ -302,8 +309,20 @@ class Game {
         if (this.blocks.length >= 5)
             this.instructions.classList.add('hide');
     }
+
+    // Method to show the game over popup
+    showGameOverPopup() {
+        this.gameOverPopup.style.display = 'block'; // Show the popup
+    }
+
+    // Method to hide the game over popup
+    hideGameOverPopup() {
+        this.gameOverPopup.style.display = 'none'; // Hide the popup
+    }
+
     endGame() {
         this.updateState(this.STATES.ENDED);
+        this.showGameOverPopup(); // Show popup when game ends
     }
     tick() {
         this.blocks[this.blocks.length - 1].tick();

@@ -46,6 +46,40 @@ html, body {
     align-items: center;
     justify-content: center;
 }
+
+.popup {
+    position: fixed; /* Stays in the same place even if you scroll */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds some shadow for depth */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+
+.popup img {
+    max-width: 100%; /* Ensure the image fits within the popup */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.popup button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333344; /* Customize button color */
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #555566; /* Button color on hover */
+}
+
 #container .game-over * {
     transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 0;
