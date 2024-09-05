@@ -6,12 +6,18 @@ html, body {
     width: 100%;
     position: relative;
     font-family: "Comfortaa", cursive;
+    background-color: blue; /* Replace with your desired background color */
 }
 
 #container {
     width: 100%;
     height: 100%;
+    background-image: url('./Gijs.png'); /* Replace with the path to your JPG file */
+    background-size: cover; /* Adjusts the background image to cover the entire element */
+    background-repeat: no-repeat; /* Ensures the image doesn't repeat */
+    background-position: center; /* Centers the background image */
 }
+
 #container #score {
     position: absolute;
     top: 20px;
@@ -39,6 +45,10 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-image: url('./Cera.png'); /* Replace with the path to your JPG file */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 #container .game-over * {
     transition: opacity 0.5s ease, transform 0.5s ease;
