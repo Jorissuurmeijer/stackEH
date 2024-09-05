@@ -1,2 +1,2 @@
 # stackEH
-Game of stack for EH
+Available at: https://jorissuurmeijer.github.io/stackEH/
