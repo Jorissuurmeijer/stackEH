@@ -40,7 +40,7 @@ class Stage {
         window.addEventListener('resize', () => this.onResize());
         this.onResize();
     }
-    setCamera(y, speed = 0.3) {
+    setCamera(y, speed = 0.2) { // Camera moves faster
         TweenLite.to(this.camera.position, speed, { y: y + 4, ease: Power1.easeInOut });
         TweenLite.to(this.camera.lookAt, speed, { y: y, ease: Power1.easeInOut });
     }
@@ -56,6 +56,10 @@ class Stage {
 }
 class Block {
     constructor(block) {
+
+        const textureLoader = new THREE.TextureLoader();
+        const blockTexture = textureLoader.load('./Gijs.png'); // Replace with your PNG path
+
         // set size and position
         this.STATES = { ACTIVE: 'active', STOPPED: 'stopped', MISSED: 'missed' };
         this.MOVE_AMOUNT = 12;
@@ -88,15 +92,27 @@ class Block {
         this.state = this.index > 1 ? this.STATES.ACTIVE : this.STATES.STOPPED;
         // set direction
         this.speed = -0.2 - (this.index * 0.005);
-        if (this.speed < -4)
-            this.speed = -4;
+        if (this.speed < -5)
+            this.speed = -5;
         this.direction = this.speed;
         // create block
+        // let geometry = new THREE.BoxGeometry(this.dimension.width, this.dimension.height, this.dimension.depth);
+        // geometry.applyMatrix(new THREE.Matrix4().makeTranslation(this.dimension.width / 2, this.dimension.height / 2, this.dimension.depth / 2));
+        //
+        // this.material = new THREE.MeshToonMaterial({ color: this.color, shading: THREE.FlatShading });
+        // this.mesh = new THREE.Mesh(geometry, this.material);
+        // this.mesh.position.set(this.position.x, this.position.y + (this.state == this.STATES.ACTIVE ? 0 : 0), this.position.z);
+
+        // Set the material to use the loaded texture
+        this.material = new THREE.MeshBasicMaterial({ map: blockTexture });
+
+        // Create geometry and mesh
         let geometry = new THREE.BoxGeometry(this.dimension.width, this.dimension.height, this.dimension.depth);
         geometry.applyMatrix(new THREE.Matrix4().makeTranslation(this.dimension.width / 2, this.dimension.height / 2, this.dimension.depth / 2));
-        this.material = new THREE.MeshToonMaterial({ color: this.color, shading: THREE.FlatShading });
         this.mesh = new THREE.Mesh(geometry, this.material);
         this.mesh.position.set(this.position.x, this.position.y + (this.state == this.STATES.ACTIVE ? 0 : 0), this.position.z);
+
+
         if (this.state == this.STATES.ACTIVE) {
             this.position[this.workingPlane] = Math.random() > 0.5 ? -this.MOVE_AMOUNT : this.MOVE_AMOUNT;
         }
@@ -153,14 +169,14 @@ class Block {
         return blocksToReturn;
     }
     tick() {
-        if (this.state == this.STATES.ACTIVE) {
+        if (this.state === this.STATES.ACTIVE) {
             let value = this.position[this.workingPlane];
-            if (value > this.MOVE_AMOUNT || value < -this.MOVE_AMOUNT)
-                this.reverseDirection();
-            this.position[this.workingPlane] += this.direction;
+            if (value > this.MOVE_AMOUNT || value < -this.MOVE_AMOUNT) this.reverseDirection();
+            this.position[this.workingPlane] += this.direction; // Movement per tick
             this.mesh.position[this.workingPlane] = this.position[this.workingPlane];
         }
     }
+
 }
 class Game {
     constructor() {
