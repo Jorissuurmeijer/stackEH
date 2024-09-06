@@ -207,6 +207,7 @@ class Game {
 
         this.gameOverPopup = document.getElementById('game-over-popup');
         this.closePopupButton = document.getElementById('close-popup-button');
+        this.gameOverMessage = document.querySelector('.game-over p'); // Select the first <p> in .game-over class
 
         // Add event listener to close button
         this.closePopupButton.addEventListener('click', () => this.hideGameOverPopup());
@@ -310,8 +311,25 @@ class Game {
             this.instructions.classList.add('hide');
     }
 
-    // Method to show the game over popup
-    showGameOverPopup() {
+    // Method to determine the message based on the score
+    getGameOverMessage(score) {
+        if (score < 10) {
+            return "Score < aantal keer Daan een slimme opmerking heeft gemaakt!";
+        } else if (score >= 10 && score < 20) {
+            return "Score < aantal minuten Sebas gemiddeld te laat is!";
+        } else if (score >= 20 && score < 30){
+            return "Score < aantal keer Machine tegen is op iets per dag!";
+        } else if (score >= 30 && score < 100) {
+            return "Score < Oege's bodycount!";
+        } else {
+            return "Score < aantal keer dat lichtinkje longkanker er niet was!"
+        }
+    }
+
+    // Method to show the game over popup with dynamic message
+    showGameOverPopup(score) {
+        const message = this.getGameOverMessage(score); // Get the message based on the score
+        this.gameOverMessage.textContent = message; // Set the message in the popup
         this.gameOverPopup.style.display = 'block'; // Show the popup
     }
 
@@ -320,10 +338,18 @@ class Game {
         this.gameOverPopup.style.display = 'none'; // Hide the popup
     }
 
-    endGame() {
-        this.updateState(this.STATES.ENDED);
-        this.showGameOverPopup(); // Show popup when game ends
+    showGameOverMessage(score) {
+        const message = this.getGameOverMessage(score); // Get the message based on the score
+        this.gameOverMessage.textContent = message; // Set the message in the <p> inside .game-over
     }
+
+    endGame() {
+        const score = this.blocks.length - 1; // Assume score is based on the number of blocks placed
+        this.updateState(this.STATES.ENDED);
+        this.showGameOverMessage(score); // Show the game over message when the game ends
+    }
+
+
     tick() {
         this.blocks[this.blocks.length - 1].tick();
         this.stage.render();
