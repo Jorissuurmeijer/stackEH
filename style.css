@@ -124,7 +124,7 @@ html, body {
 #container #instructions.hide {
     opacity: 0 !important;
 }
-#container.playing #picture-block-id, #container.resetting #picture-block-id {
+#container.playing #score, #container.resetting #score {
     transform: translatey(0px) scale(1);
 }
 #container.playing #instructions {
@@ -134,7 +134,7 @@ html, body {
     opacity: 1;
     transform: translatey(0);
 }
-#container.ended #picture-block-id {
+#container.ended #score {
     transform: translatey(6vh) scale(1.5);
 }
 #container.ended .game-over * {

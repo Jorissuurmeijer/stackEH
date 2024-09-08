@@ -191,7 +191,7 @@ class Game {
         this.state = this.STATES.LOADING;
         this.stage = new Stage();
         this.mainContainer = document.getElementById('container');
-        this.scoreContainer = document.getElementById('picture-block-id');
+        this.scoreContainer = document.getElementById('score');
         this.startButton = document.getElementById('start-button');
         this.instructions = document.getElementById('instructions');
         this.scoreContainer.innerHTML = '0';
@@ -344,10 +344,9 @@ class Game {
     }
 
     endGame() {
-        //Dit is eigenlijk de score, maar naam aangepast voor onduidelijk maken bij inspect element
-        const picture_block_id = this.blocks.length - 1; // Assume score is based on the number of blocks placed
+        const score = this.blocks.length - 1; // Assume score is based on the number of blocks placed
         this.updateState(this.STATES.ENDED);
-        this.showGameOverMessage(picture_block_id); // Show the game over message when the game ends
+        this.showGameOverMessage(score); // Show the game over message when the game ends
     }
 
 
