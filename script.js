@@ -191,7 +191,7 @@ class Game {
         this.state = this.STATES.LOADING;
         this.stage = new Stage();
         this.mainContainer = document.getElementById('container');
-        this.scoreContainer = document.getElementById('score');
+        this.scoreContainer = document.getElementById('picture-of-block-id');
         this.startButton = document.getElementById('start-button');
         this.instructions = document.getElementById('instructions');
         this.scoreContainer.innerHTML = '0';
