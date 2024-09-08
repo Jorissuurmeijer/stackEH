@@ -178,6 +178,30 @@ class Block {
     }
 
 }
+
+(function() {
+    const devTools = new Image();
+    Object.defineProperty(devTools, 'id', {
+        get: function() {
+            // This function will execute when dev tools are opened
+            alert('Developer tools detected! Please close the dev tools.');
+        }
+    });
+    console.log(devTools);
+})();
+
+document.addEventListener('contextmenu', event => event.preventDefault()); // Disable right-click
+
+document.onkeydown = function(e) {
+    if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+        e.preventDefault();
+        alert("Developer tools are disabled.");
+        return false;
+    }
+};
+
+
+
 class Game {
     constructor() {
         this.STATES = {
