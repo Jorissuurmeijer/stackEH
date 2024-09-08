@@ -191,10 +191,10 @@ class Game {
         this.state = this.STATES.LOADING;
         this.stage = new Stage();
         this.mainContainer = document.getElementById('container');
-        this.scoreContainer = document.getElementById('picture-of-block-id');
+        this.picture_of_block_idContainer = document.getElementById('picture_of_block_id');
         this.startButton = document.getElementById('start-button');
         this.instructions = document.getElementById('instructions');
-        this.scoreContainer.innerHTML = '0';
+        this.picture_of_block_idContainer.innerHTML = '0';
         this.newBlocks = new THREE.Group();
         this.placedBlocks = new THREE.Group();
         this.choppedBlocks = new THREE.Group();
@@ -247,7 +247,7 @@ class Game {
     }
     startGame() {
         if (this.state != this.STATES.PLAYING) {
-            this.scoreContainer.innerHTML = '0';
+            this.picture_of_block_idContainer.innerHTML = '0';
             this.updateState(this.STATES.PLAYING);
             this.addBlock();
         }
@@ -264,7 +264,7 @@ class Game {
         let cameraMoveSpeed = removeSpeed * 2 + (oldBlocks.length * delayAmount);
         this.stage.setCamera(2, cameraMoveSpeed);
         let countdown = { value: this.blocks.length - 1 };
-        TweenLite.to(countdown, cameraMoveSpeed, { value: 0, onUpdate: () => { this.scoreContainer.innerHTML = String(Math.round(countdown.value)); } });
+        TweenLite.to(countdown, cameraMoveSpeed, { value: 0, onUpdate: () => { this.picture_of_block_idContainer.innerHTML = String(Math.round(countdown.value)); } });
         this.blocks = this.blocks.slice(0, 1);
         setTimeout(() => {
             this.startGame();
@@ -302,7 +302,7 @@ class Game {
         if (lastBlock && lastBlock.state == lastBlock.STATES.MISSED) {
             return this.endGame();
         }
-        this.scoreContainer.innerHTML = String(this.blocks.length - 1);
+        this.picture_of_block_idContainer.innerHTML = String(this.blocks.length - 1);
         let newKidOnTheBlock = new Block(lastBlock);
         this.newBlocks.add(newKidOnTheBlock.mesh);
         this.blocks.push(newKidOnTheBlock);
@@ -312,14 +312,14 @@ class Game {
     }
 
     // Method to determine the message based on the score
-    getGameOverMessage(score) {
-        if (score < 10) {
+    getGameOverMessage(picture_of_block_id) {
+        if (picture_of_block_id < 10) {
             return "Score < aantal keer Daan een slimme opmerking heeft gemaakt!";
-        } else if (score >= 10 && score < 20) {
+        } else if (picture_of_block_id >= 10 && picture_of_block_id < 20) {
             return "Score < aantal minuten Sebas gemiddeld te laat is!";
-        } else if (score >= 20 && score < 30){
+        } else if (picture_of_block_id >= 20 && picture_of_block_id < 30){
             return "Score < aantal keer Machine tegen is op iets per dag!";
-        } else if (score >= 30 && score < 100) {
+        } else if (picture_of_block_id >= 30 && picture_of_block_id < 100) {
             return "Score < Oege's bodycount!";
         } else {
             return "Score < aantal keer dat lichtinkje longkanker er niet was!"
@@ -327,8 +327,8 @@ class Game {
     }
 
     // Method to show the game over popup with dynamic message
-    showGameOverPopup(score) {
-        const message = this.getGameOverMessage(score); // Get the message based on the score
+    showGameOverPopup(picture_of_block_id) {
+        const message = this.getGameOverMessage(picture_of_block_id); // Get the message based on the score
         this.gameOverMessage.textContent = message; // Set the message in the popup
         this.gameOverPopup.style.display = 'block'; // Show the popup
     }
@@ -338,15 +338,15 @@ class Game {
         this.gameOverPopup.style.display = 'none'; // Hide the popup
     }
 
-    showGameOverMessage(score) {
-        const message = this.getGameOverMessage(score); // Get the message based on the score
+    showGameOverMessage(picture_of_block_id) {
+        const message = this.getGameOverMessage(picture_of_block_id); // Get the message based on the score
         this.gameOverMessage.textContent = message; // Set the message in the <p> inside .game-over
     }
 
     endGame() {
-        const score = this.blocks.length - 1; // Assume score is based on the number of blocks placed
+        const picture_of_block_id = this.blocks.length - 1; // Assume score is based on the number of blocks placed
         this.updateState(this.STATES.ENDED);
-        this.showGameOverMessage(score); // Show the game over message when the game ends
+        this.showGameOverMessage(picture_of_block_id); // Show the game over message when the game ends
     }
 
 
