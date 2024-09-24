@@ -213,16 +213,6 @@ class Game {
 
         // Add event listener to close button
         this.closePopupButton.addEventListener('click', () => this.hideGameOverPopup());
-        
-        document.addEventListener('contextmenu', event => event.preventDefault()); // Disable right-click
-
-        document.onkeydown = function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-                e.preventDefault();
-                alert("Developer tools are disabled.");
-                return false;
-            }
-        };
 
         document.addEventListener('keydown', e => {
             if (e.keyCode == 32)
@@ -359,6 +349,7 @@ class Game {
         const picture_of_block_id = this.blocks.length - 1; // Assume score is based on the number of blocks placed
         this.updateState(this.STATES.ENDED);
         this.showGameOverMessage(picture_of_block_id); // Show the game over message when the game ends
+        this.showGameOverPopup(picture_of_block_id);
     }
 
 
